@@ -70,15 +70,11 @@ int main(int argc, char *argv[]){
     // Task 3 tests
     std::cout << std::endl;
     std::cout << "Task 3 tests" << std::endl;
-    Card* card_1 = new Card(Card::QUEEN, Card::CLUBS);
-    Card* card_2 = new Card(Card::ACE, Card::HEARTS);
     Hand* hand = new Hand();
-    hand->Add(card_1);
+    hand->Add(new Card(Card::QUEEN, Card::CLUBS));
     std::cout << "Hand total: " << hand->GetValue() << std::endl;
-    hand->Add(card_2);
+    hand->Add(new Card(Card::QUEEN, Card::CLUBS));
     std::cout << "Hand total: " << hand->GetValue() << std::endl;
-    delete hand;
-    delete card_1;
-    delete card_2;    
+    delete hand;   
     return 0;
 }

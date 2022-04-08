@@ -61,7 +61,7 @@ Hand::Hand(){
 }
 
 Hand::~Hand(){
-    m_cards.clear();
+    Clear();
 }
 
 void Hand::Add(Card* pCard){
@@ -69,6 +69,8 @@ void Hand::Add(Card* pCard){
 }
 
 void Hand::Clear(){
+    for(Card* pCard : m_cards)
+        delete pCard;
     m_cards.clear();
 }
 

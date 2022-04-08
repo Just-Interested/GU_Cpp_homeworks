@@ -125,6 +125,7 @@ int ArrayInt::get_num_of_uniq_elem(){
 
 // По идее следующий способ должен работать быстрее
 // и по большей части зависит от времени сортировки
+// UDP: замеры в main
 int ArrayInt::get_num_of_uniq_elem_2(){
     if (m_length == 0)
         return 0;
