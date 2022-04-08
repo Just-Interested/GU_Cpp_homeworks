@@ -1,5 +1,4 @@
 #include <iostream>
-#include "../BlackJack/Hand.h"
 
 // Task 1
 template<typename T>
