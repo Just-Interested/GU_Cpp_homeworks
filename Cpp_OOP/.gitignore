@@ -1,0 +1,14 @@
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.log
+
+CMakeCache.txt
+CMakeLists.txt
+Makefile
+cmake_install.cmake
+CmakeFiles/
+.vscode/

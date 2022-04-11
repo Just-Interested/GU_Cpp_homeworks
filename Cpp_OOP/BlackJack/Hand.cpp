@@ -3,6 +3,7 @@
 
 Hand::~Hand(){
     Clear();
+    //std::cout << "~Hand()" << std::endl;
 }
 
 void Hand::Add(Card* pCard){

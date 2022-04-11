@@ -22,32 +22,14 @@ int Card::getValue() const{
         return 10;
     return rank;
 }
-	
-void Card::show() const{
-    std::cout << "**** CARD ****" << std::endl;
-    std::cout << "Rank: ";
-    switch(this->rank){
-        case ACE : std::cout << "ACE" << std::endl;   break;
-        case TWO : std::cout << "TWO" << std::endl;   break;
-        case THREE : std::cout << "THREE" << std::endl;   break;
-        case FOUR : std::cout << "FOUR" << std::endl;   break;
-        case FIVE : std::cout << "FIVE" << std::endl;   break;
-        case SIX : std::cout << "SIX" << std::endl;   break;
-        case SEVEN : std::cout << "SEVEN" << std::endl;   break;
-        case EIGHT : std::cout << "EIGHT" << std::endl;   break;
-        case NINE : std::cout << "NINE" << std::endl;   break;
-        case TEN : std::cout << "TEN" << std::endl;   break;
-        case JACK : std::cout << "JACK" << std::endl;   break;
-        case QUEEN : std::cout << "QUEEN" << std::endl;   break;
-        case KING : std::cout << "KING" << std::endl;   break;
-    }
-    std::cout << "Suit: ";
-    switch(this->suit){
-        case SPADES : std::cout << "SPADES" << std::endl;   break;
-        case HEARTS : std::cout << "HEARTS" << std::endl;   break;
-        case DIAMONDS : std::cout << "DIAMONDS" << std::endl;   break;
-        case CLUBS : std::cout << "CLUBS" << std::endl;   break;
-    }
-    std::cout << "Value: " << getValue() << std::endl; 
-    std::cout << "**************" << std::endl;
+
+
+std::ostream& operator<<(std::ostream& os, const Card& rCard){
+    const std::string RANKS[] = { "0", "A", "2", "3", "4", "5", "6", "7", "8", "9","10", "J", "Q", "K" };
+    const char SUITS[] = { 6, 3, 4, 5}; // ascii for suit simbols
+    if (rCard.m_IsFaceUp)
+        os << RANKS[rCard.rank] << SUITS[rCard.suit];
+    else 
+        os << "XX";
+    return os;
 }

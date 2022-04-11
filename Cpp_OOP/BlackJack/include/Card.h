@@ -1,6 +1,8 @@
 #ifndef CARD_H
 #define CARD_H
 
+#include <iostream>
+
 class Card{
 public:
 	enum Suit {SPADES, HEARTS, DIAMONDS, CLUBS};
@@ -14,7 +16,7 @@ public:
 
 	int getValue() const;
 
-	void show() const;
+	friend std::ostream& operator<<(std::ostream& os, const Card& rCard);
 
 private:
 	Suit suit;
