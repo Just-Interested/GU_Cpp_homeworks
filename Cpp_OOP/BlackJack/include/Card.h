@@ -10,7 +10,7 @@ public:
                JACK, QUEEN, KING};
 	Card();
     
-	Card(Rank rank, Suit suit, bool m_IsFaceUp = false);
+	Card(Rank rank, Suit suit, bool m_IsFaceUp = true);
 
 	void flip();
 
