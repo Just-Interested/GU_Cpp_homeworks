@@ -23,7 +23,6 @@ int Card::getValue() const{
     return rank;
 }
 
-
 std::ostream& operator<<(std::ostream& os, const Card& rCard){
     const std::string RANKS[] = { "0", "A", "2", "3", "4", "5", "6", "7", "8", "9","10", "J", "Q", "K" };
     const char SUITS[] = { 6, 3, 4, 5}; // ascii for suit simbols
