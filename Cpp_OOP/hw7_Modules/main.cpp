@@ -63,8 +63,8 @@ int main(int argc, char* argv[]){
 
 
     // Task 2 tests
-    std::shared_ptr<Date> date1(new Date(1, 10, 2000));
-    std::shared_ptr<Date> date2(new Date(31, 9, 2000));
+    std::shared_ptr<Date> date1 = std::make_shared<Date>(1, 10, 2000);
+    std::shared_ptr<Date> date2 = std::make_shared<Date>(31, 9, 2000);;
     std::cout << get_later(date1, date2);
     std::cout << *date2;
     swap_ptrs<Date>(date1, date2);
