@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <iomanip>
 #include "GenericPlayer.h"
 
 
@@ -8,15 +9,16 @@ bool GenericPlayer::isBoosted() const{
 }
 
 void GenericPlayer::Bust() const{
-    std::cout << "Player " << name << "is boosted!" << std::endl;
+    std::cout << name << " is boosted!" << std::endl;
 }
 
 std::ostream& operator<<(std::ostream& os, const GenericPlayer& rGenericPlayer)
 {
-    os << rGenericPlayer.name << ": ";
+    std::string tmp = rGenericPlayer.name + ":";
+    os << std::left << std::setw(10) << tmp;
     if (!rGenericPlayer.m_cards.empty()) {
         for (Card* pCard : rGenericPlayer.m_cards){
-            os << (*pCard) << "\t";
+            os << (*pCard) << "    ";
         }
         os << std::endl;
     }

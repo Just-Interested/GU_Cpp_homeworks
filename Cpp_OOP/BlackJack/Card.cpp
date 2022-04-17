@@ -1,10 +1,11 @@
 #include <iostream>
+#include <iomanip>
 #include "Card.h"
 
 Card::Card(){
     this->rank = ACE;
     this->suit = SPADES;
-    m_IsFaceUp = false;
+    m_IsFaceUp = true;
 }
 
 Card::Card(Rank rank, Suit suit, bool m_IsFaceUp){
@@ -28,8 +29,8 @@ std::ostream& operator<<(std::ostream& os, const Card& rCard){
     const std::string RANKS[] = { "0", "A", "2", "3", "4", "5", "6", "7", "8", "9","10", "J", "Q", "K" };
     const char SUITS[] = { 6, 3, 4, 5}; // ascii for suit simbols
     if (rCard.m_IsFaceUp)
-        os << RANKS[rCard.rank] << SUITS[rCard.suit];
+        os << std::right << std::setw(2) << RANKS[rCard.rank] << SUITS[rCard.suit];
     else 
-        os << "XX";
+        os << std::right << std::setw(2) << "X" << "X";
     return os;
 }
