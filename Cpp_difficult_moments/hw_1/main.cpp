@@ -5,19 +5,42 @@
 #include <tuple>
 #include <string>
 #include <optional>
+#include <iomanip>
+#include <algorithm>
+
+
+bool is_ASCII_printable(std::string s){
+    for (int i = 0; i < s.length(); i++){
+        if (!std::isprint(static_cast<char>(s[i])))
+            return false;
+    }
+    return true;
+}
 
 struct Person
 {
-    std::string name;
     std::string surname;
+    std::string name;
     std::optional<std::string> patronymic;
 };
 
 std::ostream &operator<<(std::ostream &os, Person &p)
 {
-    os << p.surname << " " << p.name;
-    if (p.patronymic)
-        return os << " " << *p.patronymic;
+    int aw_name = p.name.length() / 2;  // костыли для форматированного вывода кирилицы
+    if (is_ASCII_printable(p.name))     // в частности для подбора значения, передаваемого в функцию setw(n)
+        aw_name = 0;                    // для ASCII символов, все и так работает корректно
+    int aw_surname = p.surname.length() / 2; // с кирилицей похоже проблема заключается в том, что
+    if (is_ASCII_printable(p.surname))      // setw вычисляет разницу между длиной строки и необходимой шириной поля и добавляет нужное количиство "пробелов"
+        aw_surname = 0;                     // а для кирилицы каждый выводимый символ кодируется двумя байтами, что и вызывает расхождение
+    os << std::setw(20 + aw_surname) << std::right << p.surname << std::setw(15 + aw_name) << std::right << p.name;
+    if (p.patronymic){
+        int aw_patronymic = (*p.patronymic).length() / 2;
+        if (is_ASCII_printable(*p.patronymic))
+            aw_patronymic = 0;
+        os << std::setw(20 + aw_patronymic) << std::right << *p.patronymic;
+    }
+    else 
+        os << std::setw(20) << std::right << " ";
     return os;
 }
 
@@ -62,7 +85,7 @@ std::vector<std::string> split_string(std::string src, char delimiter){
     int src_len = src.length();
     int last_pos = 0;
     for (int i = 0; i < src_len; i++){
-        if (src.at(i) == delimiter){
+        if (src[i] == delimiter){
             if (last_pos != i)      // исключаем подряд идущие разделители
                 v.push_back(src.substr(last_pos, i - last_pos));
             last_pos = i + 1;
@@ -73,44 +96,23 @@ std::vector<std::string> split_string(std::string src, char delimiter){
     return v;
 }
 
-
-class PhoneBook{
-private:
-    std::vector<std::pair<Person, PhoneNumber>> records;
-public:
-    PhoneBook(std::ifstream& ifs){
-        std::string c_line;
-        std::string tmp;
-        std::istringstream input;
-        Person p;
-        PhoneNumber ph_num;
-        while(std::getline(ifs, c_line)){
-            std::cout << c_line << std::endl;
-            // input.str(c_line);
-            // input >> p.surname >> p.name >> *p.patronymic >> tmp;         
-        }
-        
-    }
-
-
-};
-
-
 PhoneNumber parse_number(std::string s){
     PhoneNumber ph_num;
-    for (int i = 0; i < s.length(); i++){
-        char t = s[i];
-        if (t == '+' || t == '(' || t == ')')
+    for (int i = 0; i < s.length(); i++){   // заменяем все разделители на ' '
+        char c = s[i];
+        if (c == '+' || c == '(' || c == ')')
             s[i] = ' ';
     }
     std::vector<std::string> v = split_string(s, ' ');
     if (v.size() > 4 || v.size() < 3)
         return PhoneNumber();
-    if (v.size() == 4)
-        ph_num.additional_number = std::stoi(v.back()) ; v.pop_back();
+    if (v.size() == 4){
+        ph_num.additional_number = std::stoi(v.back()); 
+        v.pop_back();
+    }
     ph_num.number = std::stoi(v.back()) ; v.pop_back();
     ph_num.city_code = std::stoi(v.back()) ; v.pop_back();
-    ph_num.country_code = std::stoi(v.back()) ; v.pop_back();
+    ph_num.country_code = std::stoi(v.back()); v.pop_back();
     return ph_num;
 }
 
@@ -123,11 +125,10 @@ Person parse_fullname(std::string s){
     if (size == 3){
         p.patronymic = splited.back(); splited.pop_back();
     }
+    p.name = splited.back(); splited.pop_back();
     p.surname = splited.back(); splited.pop_back();
-    p.name = splited.back();
     return p;
 }
-
 
 std::pair<Person, PhoneNumber> parse_record(std::string record){
     Person p;
@@ -138,23 +139,92 @@ std::pair<Person, PhoneNumber> parse_record(std::string record){
     return std::pair<Person, PhoneNumber>(p, ph_num);
 }
 
+class PhoneBook{
+private:
+    std::vector<std::pair<Person, PhoneNumber>> records;
+public:
+    PhoneBook(std::ifstream& ifs){
+        std::string c_line;
+        while(std::getline(ifs, c_line)){
+            records.push_back(parse_record(c_line));
+        }
+    }
+    void SortByName(){
+        std::sort(this->records.begin(), this->records.end(), [](std::pair<Person, PhoneNumber> a, std::pair<Person, PhoneNumber> b){
+            return a.first < b.first;
+        });
+    }
+    void SortByPhone(){
+        std::sort(this->records.begin(), this->records.end(), [](std::pair<Person, PhoneNumber> a, std::pair<Person, PhoneNumber> b){
+            return a.second < b.second;
+        });
+    }
+    std::tuple<std::string, PhoneNumber> GetPhoneNumber(std::string surname){
+        std::tuple<std::string, PhoneNumber> t = std::make_tuple("not found", PhoneNumber());
+        PhoneNumber ph_num;
+        int n_rec = 0;
+        for (auto rec : this->records){
+            if (rec.first.surname == surname){
+                ph_num = rec.second;
+                n_rec++;
+            }
+        }
+        if (n_rec == 1)
+            t = std::make_tuple("", ph_num);
+        if (n_rec > 1)
+            t = std::make_tuple("found more than 1", PhoneNumber());
+        return t;
+    }
+    void ChangePhoneNumber(Person p, PhoneNumber ph_num){
+        for (auto &rec : this->records){
+            if (rec.first == p){
+                rec.second = ph_num;
+                break;
+            }
+        }
+    }
+    friend std::ostream& operator<<(std::ostream& os, const PhoneBook& book);
+};
+
+std::ostream& operator<<(std::ostream& os, const PhoneBook& book){
+    for (auto record : book.records){
+        os << record.first << "   "  << record.second << std::endl;
+    }
+    return os;
+}
+
+
+
+
 int main(int argc, char const *argv[])
 {
-    std::string record("Ильин Петр Артемович +7(17)455767 57");
-    std::string src("123 456 789 aaa bbb ccc  444  555     ");
-    std::vector<std::string> v = split_string(record, '+');
-    for (auto str : v){
-        std::cout << str << std::endl;
-    }
-
-    Person p = parse_fullname("Ильин Петр");
-    std::cout << (p == Person()) << p << std::endl;
-
-    PhoneNumber n = parse_number("7 ( 17 )455767 57");
-    std::cout << (n == PhoneNumber()) << n << std::endl;
-
-    std::pair<Person, PhoneNumber> pp = parse_record("Ильин Петр Артемович +7(17)455767 57");
-    std::cout << "Person: " << pp.first << std::endl;
-    std::cout << "Number: " << pp.second << std::endl;
+    std::ifstream file("G:\\phonebook.txt"); // путь к файлу PhoneBook.txt
+    PhoneBook book(file);
+    std::cout << book << std::endl;
+    std::cout << "------SortByName-------" << std::endl;
+    book.SortByName();
+    std::cout << book << std::endl;
+    std::cout << "------SortByPhone-------" << std::endl;
+    book.SortByPhone();
+    std::cout << book << std::endl;
+    std::cout << "------GetPhoneNumber-------" << std::endl;
+    auto print_phone_number = [&book](const std::string &surname)
+    {
+        std::cout << surname << "\t";
+        auto answer = book.GetPhoneNumber(surname);
+        if (std::get<0>(answer).empty())
+            std::cout << std::get<1>(answer);
+        else
+            std::cout << std::get<0>(answer);
+        std::cout << std::endl;
+    };
+    print_phone_number("Иванов");
+    print_phone_number("Петров");
+    std::cout << "----ChangePhoneNumber----" << std::endl;
+    book.ChangePhoneNumber(Person{"Котов", "Василий", "Елисееевич"},
+                           PhoneNumber{7, 123, 15344458, std::nullopt});
+    book.ChangePhoneNumber(Person{"Миронова", "Маргарита", "Владимировна"},
+                           PhoneNumber{16, 465, 9155448, 13});
+    std::cout << book << std::endl;
     return 0;
 }
