@@ -30,7 +30,7 @@ public:
     }
     double IMethods::GetAverageScore(const classroom::FullName& name) {
         for (auto s : students.students()) {
-            if (s.full_name().name() == name.name())
+            if (s.full_name().SerializeAsString() == name.SerializeAsString())
                 return s.average_score();
         }
         std::cout << "Student " << name.name() << " not found!" << std::endl;
