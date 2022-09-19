@@ -8,6 +8,8 @@
 #include "Ground.h"
 #include "Tank.h"
 #include "House.h"
+#include <FileLoggerSingletone.h>
+#include <LoggerSingleton.h>
 
 using namespace std;
 using namespace MyTools;
@@ -22,8 +24,8 @@ SBomber::SBomber()
     bombsNumber(10),
     score(0)
 {
-    WriteToLog(string(__FUNCTION__) + " was invoked");
-
+    //FileLoggerSingletone::getInstance().WriteToLog(string(__FUNCTION__) + " was invoked");
+    LoggerSingleton::getInstance().WriteToLog(string(__FUNCTION__) + " was invoked");
     Plane* p = new Plane;
     p->SetDirection(1, 0.1);
     p->SetSpeed(4);
@@ -94,7 +96,8 @@ SBomber::~SBomber()
 
 void SBomber::MoveObjects()
 {
-    WriteToLog(string(__FUNCTION__) + " was invoked");
+    //FileLoggerSingletone::getInstance().WriteToLog(string(__FUNCTION__) + " was invoked");
+    LoggerSingleton::getInstance().WriteToLog(string(__FUNCTION__) + " was invoked");
 
     for (size_t i = 0; i < vecDynamicObj.size(); i++)
     {
@@ -107,7 +110,8 @@ void SBomber::MoveObjects()
 
 void SBomber::CheckObjects()
 {
-    WriteToLog(string(__FUNCTION__) + " was invoked");
+    //FileLoggerSingletone::getInstance().WriteToLog(string(__FUNCTION__) + " was invoked");
+    LoggerSingleton::getInstance().WriteToLog(string(__FUNCTION__) + " was invoked");
 
     CheckPlaneAndLevelGUI();
     CheckBombsAndGround();
@@ -128,7 +132,7 @@ void SBomber::CheckBombsAndGround()
     const double y = pGround->GetY();
     for (size_t i = 0; i < vecBombs.size(); i++)
     {
-        if (vecBombs[i]->GetY() >= y) // Пересечение бомбы с землей
+        if (vecBombs[i]->GetY() >= y) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         {
             pGround->AddCrater(vecBombs[i]->GetX());
             CheckDestoyableObjects(vecBombs[i]);
@@ -275,7 +279,8 @@ void SBomber::ProcessKBHit()
         c = _getch();
     }
 
-    WriteToLog(string(__FUNCTION__) + " was invoked. key = ", c);
+    //FileLoggerSingletone::getInstance().WriteToLog(string(__FUNCTION__) + " was invoked. key = ", c);
+    LoggerSingleton::getInstance().WriteToLog(string(__FUNCTION__) + " was invoked. key = ", c);
 
     switch (c) {
 
@@ -306,7 +311,8 @@ void SBomber::ProcessKBHit()
 
 void SBomber::DrawFrame()
 {
-    WriteToLog(string(__FUNCTION__) + " was invoked");
+    //FileLoggerSingletone::getInstance().WriteToLog(string(__FUNCTION__) + " was invoked");
+    LoggerSingleton::getInstance().WriteToLog(string(__FUNCTION__) + " was invoked");
 
     for (size_t i = 0; i < vecDynamicObj.size(); i++)
     {
@@ -332,7 +338,9 @@ void SBomber::DrawFrame()
 
 void SBomber::TimeStart()
 {
-    WriteToLog(string(__FUNCTION__) + " was invoked");
+    //FileLoggerSingletone::getInstance().WriteToLog(string(__FUNCTION__) + " was invoked");
+    LoggerSingleton::getInstance().WriteToLog(string(__FUNCTION__) + " was invoked");
+
     startTime = GetTickCount64();
 }
 
@@ -342,14 +350,16 @@ void SBomber::TimeFinish()
     deltaTime = uint16_t(finishTime - startTime);
     passedTime += deltaTime;
 
-    WriteToLog(string(__FUNCTION__) + " deltaTime = ", (int)deltaTime);
+    //FileLoggerSingletone::getInstance().WriteToLog(string(__FUNCTION__) + " deltaTime = ", (int)deltaTime);
+    LoggerSingleton::getInstance().WriteToLog(string(__FUNCTION__) + " deltaTime = ", (int)deltaTime);
 }
 
 void SBomber::DropBomb()
 {
     if (bombsNumber > 0)
     {
-        WriteToLog(string(__FUNCTION__) + " was invoked");
+        //FileLoggerSingletone::getInstance().WriteToLog(string(__FUNCTION__) + " was invoked");
+        LoggerSingleton::getInstance().WriteToLog(string(__FUNCTION__) + " was invoked");
 
         Plane* pPlane = FindPlane();
         double x = pPlane->GetX() + 4;
