@@ -5,7 +5,7 @@
 
 namespace MyTools {
 
-    // Палитра цветов от 0 до 15
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ 0 пїЅпїЅ 15
     enum ConsoleColor
     {
         CC_Black = 0,
@@ -39,16 +39,6 @@ namespace MyTools {
     void SetColor(ConsoleColor color);
 
 	//=============================================================================================
-
-	void __fastcall OpenLogFile(const std::string& FN);
-
-	void CloseLogFile();
-
-	void __fastcall WriteToLog(const std::string& str);
-
-	void __fastcall WriteToLog(const std::string& str, int n);
-
-	void __fastcall WriteToLog(const std::string& str, double d);
 
 	//=============================================================================================
 
