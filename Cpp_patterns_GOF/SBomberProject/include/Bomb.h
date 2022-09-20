@@ -1,12 +1,12 @@
 #pragma once
 
-#include "DynamicObject.h"
+#include "AbstractBomb.h"
 
-class Bomb : public DynamicObject
+class Bomb : public AbstractBomb
 {
 public:
 
-	static const uint16_t BombCost = 10; // стоимость бомбы в очках
+	static const uint16_t BombCost = 10; 
 
 	void Draw() const override;
 
