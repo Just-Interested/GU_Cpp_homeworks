@@ -1,5 +1,6 @@
 ﻿
 #include <conio.h>
+#include <Windows.h>
 
 #include "SBomber.h"
 #include "MyTools.h"
@@ -23,11 +24,10 @@ int main(void)
         }
 
         MyTools::ClrScr();
-
         game.DrawFrame();
         game.MoveObjects();
         game.CheckObjects();
-
+        Sleep(30);
         game.TimeFinish();
 
     } while (!game.GetExitFlag());
