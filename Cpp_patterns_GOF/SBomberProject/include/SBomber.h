@@ -7,6 +7,7 @@
 #include "Bomb.h"
 #include "Ground.h"
 #include "Tank.h"
+#include "BombIterator.h"
 
 class SBomber
 {
@@ -41,6 +42,9 @@ private:
     std::vector<Bomb*> FindAllBombs() const;
 
     void DropBomb();
+
+    BombIterator begin() const;
+    BombIterator end() const;
 
     std::vector<DynamicObject*> vecDynamicObj;
     std::vector<GameObject*> vecStaticObj;

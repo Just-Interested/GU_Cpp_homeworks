@@ -8,6 +8,7 @@
 #include "Ground.h"
 #include "Tank.h"
 #include "House.h"
+#include "TankAdapter.h"
 
 using namespace std;
 using namespace MyTools;
@@ -57,6 +58,11 @@ SBomber::SBomber()
     pTank->SetWidth(13);
     pTank->SetPos(50, groundY - 1);
     vecStaticObj.push_back(pTank);
+
+    TankAdapter* pTankAdapter = new TankAdapter;
+    pTankAdapter->SetWidth(13);
+    pTankAdapter->SetPos(13, groundY - 1);
+    vecStaticObj.push_back(pTankAdapter);
 
     House * pHouse = new House;
     pHouse->SetWidth(13);
@@ -128,7 +134,7 @@ void SBomber::CheckBombsAndGround()
     const double y = pGround->GetY();
     for (size_t i = 0; i < vecBombs.size(); i++)
     {
-        if (vecBombs[i]->GetY() >= y) // Пересечение бомбы с землей
+        if (vecBombs[i]->GetY() >= y) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         {
             pGround->AddCrater(vecBombs[i]->GetX());
             CheckDestoyableObjects(vecBombs[i]);
@@ -186,6 +192,7 @@ vector<DestroyableGroundObject*> SBomber::FindDestoyableGroundObjects() const
     vector<DestroyableGroundObject*> vec;
     Tank* pTank;
     House* pHouse;
+    TankAdapter* pTankAdapter;
     for (size_t i = 0; i < vecStaticObj.size(); i++)
     {
         pTank = dynamic_cast<Tank*>(vecStaticObj[i]);
@@ -199,6 +206,12 @@ vector<DestroyableGroundObject*> SBomber::FindDestoyableGroundObjects() const
         if (pHouse != nullptr)
         {
             vec.push_back(pHouse);
+            continue;
+        }
+        pTankAdapter = dynamic_cast<TankAdapter*>(vecStaticObj[i]);
+        if (pTankAdapter != nullptr)
+        {
+            vec.push_back(pTankAdapter);
             continue;
         }
     }
@@ -222,18 +235,35 @@ Ground* SBomber::FindGround() const
     return nullptr;
 }
 
+BombIterator SBomber::begin() const {
+    BombIterator it(vecDynamicObj);
+    return it;
+}
+
+BombIterator SBomber::end() const {
+    BombIterator it(vecDynamicObj);
+    it.reset();
+    return it;
+}
+
 vector<Bomb*> SBomber::FindAllBombs() const
 {
     vector<Bomb*> vecBombs;
 
-    for (size_t i = 0; i < vecDynamicObj.size(); i++)
-    {
-        Bomb* pBomb = dynamic_cast<Bomb*>(vecDynamicObj[i]);
-        if (pBomb != nullptr)
-        {
-            vecBombs.push_back(pBomb);
-        }
+    auto it_begin = begin();
+    auto it_end = end();
+    for (; it_begin != it_end; ++it_begin){
+        vecBombs.push_back(*it_begin);
     }
+
+    // for (size_t i = 0; i < vecDynamicObj.size(); i++)
+    // {
+    //     Bomb* pBomb = dynamic_cast<Bomb*>(vecDynamicObj[i]);
+    //     if (pBomb != nullptr)
+    //     {
+    //         vecBombs.push_back(pBomb);
+    //     }
+    // }
 
     return vecBombs;
 }
