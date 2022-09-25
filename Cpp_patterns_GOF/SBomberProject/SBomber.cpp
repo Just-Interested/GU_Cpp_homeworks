@@ -1,6 +1,8 @@
 
 #include <conio.h>
 #include <windows.h>
+#include <cstdlib>
+#include <ctime>
 
 #include "MyTools.h"
 #include "SBomber.h"
@@ -8,6 +10,11 @@
 #include "Ground.h"
 #include "Tank.h"
 #include "House.h"
+#include "CustomHouse.h"
+#include "HouseDirector.h"
+#include "CustomHouseBuilderA.h"
+#include "CustomHouseBuilderB.h"
+#include "CollisionDetectorA.h"
 
 using namespace std;
 using namespace MyTools;
@@ -20,7 +27,8 @@ SBomber::SBomber()
     passedTime(0),
     fps(0),
     bombsNumber(10),
-    score(0)
+    score(0),
+    collisionDetector(new CollisionDetectorA)
 {
     WriteToLog(string(__FUNCTION__) + " was invoked");
 
@@ -63,6 +71,18 @@ SBomber::SBomber()
     pHouse->SetPos(80, groundY - 1);
     vecStaticObj.push_back(pHouse);
 
+    HouseDirector dir;
+    CustomHouseBuilder* houseBuilder;
+    std::srand(std::time(nullptr));
+    if (std::rand() % 2 == 0)
+        houseBuilder = new CustomHouseBuilderA;
+    else
+        houseBuilder = new CustomHouseBuilderB;
+    CustomHouse* pCustomHouse = dir.createCustomHouse(houseBuilder);
+    pCustomHouse->SetWidth(14);
+    pCustomHouse->SetPos(14, groundY - 1);
+    vecStaticObj.push_back(pCustomHouse);
+
     /*
     Bomb* pBomb = new Bomb;
     pBomb->SetDirection(0.3, 1);
@@ -90,6 +110,7 @@ SBomber::~SBomber()
             delete vecStaticObj[i];
         }
     }
+    delete collisionDetector;
 }
 
 void SBomber::MoveObjects()
@@ -115,7 +136,8 @@ void SBomber::CheckObjects()
 
 void SBomber::CheckPlaneAndLevelGUI()
 {
-    if (FindPlane()->GetX() > FindLevelGUI()->GetFinishX())
+    // if (FindPlane()->GetX() > FindLevelGUI()->GetFinishX())
+    if (collisionDetector->PlaneAndLevelGUICollisionDetect(FindPlane(), FindLevelGUI()))
     {
         exitFlag = true;
     }
@@ -125,10 +147,11 @@ void SBomber::CheckBombsAndGround()
 {
     vector<Bomb*> vecBombs = FindAllBombs();
     Ground* pGround = FindGround();
-    const double y = pGround->GetY();
+    // const double y = pGround->GetY();
     for (size_t i = 0; i < vecBombs.size(); i++)
     {
-        if (vecBombs[i]->GetY() >= y) // Пересечение бомбы с землей
+        // if (vecBombs[i]->GetY() >= y) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+        if (collisionDetector->BombsAndGroundCollisionDetect(vecBombs[i], pGround))
         {
             pGround->AddCrater(vecBombs[i]->GetX());
             CheckDestoyableObjects(vecBombs[i]);
@@ -141,17 +164,23 @@ void SBomber::CheckBombsAndGround()
 void SBomber::CheckDestoyableObjects(Bomb * pBomb)
 {
     vector<DestroyableGroundObject*> vecDestoyableObjects = FindDestoyableGroundObjects();
-    const double size = pBomb->GetWidth();
-    const double size_2 = size / 2;
-    for (size_t i = 0; i < vecDestoyableObjects.size(); i++)
+    // const double size = pBomb->GetWidth();
+    // const double size_2 = size / 2;
+    // for (size_t i = 0; i < vecDestoyableObjects.size(); i++)
+    // {
+    //     const double x1 = pBomb->GetX() - size_2;
+    //     const double x2 = x1 + size;
+    //     if (vecDestoyableObjects[i]->isInside(x1, x2))
+    //     {
+    //         score += vecDestoyableObjects[i]->GetScore();
+    //         DeleteStaticObj(vecDestoyableObjects[i]);
+    //     }
+    // }
+    vector<DestroyableGroundObject*> destroyedObjects = collisionDetector->DestoyableObjectsCollisionDetect(pBomb, vecDestoyableObjects);
+    for (size_t i = 0; i < destroyedObjects.size(); i++)
     {
-        const double x1 = pBomb->GetX() - size_2;
-        const double x2 = x1 + size;
-        if (vecDestoyableObjects[i]->isInside(x1, x2))
-        {
-            score += vecDestoyableObjects[i]->GetScore();
-            DeleteStaticObj(vecDestoyableObjects[i]);
-        }
+        score += destroyedObjects[i]->GetScore();
+        DeleteStaticObj(destroyedObjects[i]);
     }
 }
 
@@ -186,6 +215,7 @@ vector<DestroyableGroundObject*> SBomber::FindDestoyableGroundObjects() const
     vector<DestroyableGroundObject*> vec;
     Tank* pTank;
     House* pHouse;
+    CustomHouse* pCustomHouse;
     for (size_t i = 0; i < vecStaticObj.size(); i++)
     {
         pTank = dynamic_cast<Tank*>(vecStaticObj[i]);
@@ -199,6 +229,13 @@ vector<DestroyableGroundObject*> SBomber::FindDestoyableGroundObjects() const
         if (pHouse != nullptr)
         {
             vec.push_back(pHouse);
+            continue;
+        }
+
+        pCustomHouse = dynamic_cast<CustomHouse*>(vecStaticObj[i]);
+        if (pCustomHouse != nullptr)
+        {
+            vec.push_back(pCustomHouse);
             continue;
         }
     }
