@@ -3,8 +3,9 @@
 #include <stdint.h>
 
 #include "GameObject.h"
+#include "Observer.h"
 
-class DestroyableGroundObject : public GameObject
+class DestroyableGroundObject : public GameObject, public Observer
 {
 public:
 

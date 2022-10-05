@@ -8,6 +8,7 @@
 #include "Ground.h"
 #include "Tank.h"
 #include "House.h"
+#include "LogVisitor.h"
 
 using namespace std;
 using namespace MyTools;
@@ -20,7 +21,8 @@ SBomber::SBomber()
     passedTime(0),
     fps(0),
     bombsNumber(10),
-    score(0)
+    score(0),
+    visitor(new LogVisitor)
 {
     WriteToLog(string(__FUNCTION__) + " was invoked");
 
@@ -101,6 +103,7 @@ void SBomber::MoveObjects()
         if (vecDynamicObj[i] != nullptr)
         {
             vecDynamicObj[i]->Move(deltaTime);
+            vecDynamicObj[i]->Accept(*visitor);
         }
     }
 };
@@ -125,13 +128,21 @@ void SBomber::CheckBombsAndGround()
 {
     vector<Bomb*> vecBombs = FindAllBombs();
     Ground* pGround = FindGround();
+    DestroyableGroundObject* gndObj = nullptr;
     const double y = pGround->GetY();
     for (size_t i = 0; i < vecBombs.size(); i++)
     {
-        if (vecBombs[i]->GetY() >= y) // Пересечение бомбы с землей
+        if (vecBombs[i]->GetY() >= y) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         {
             pGround->AddCrater(vecBombs[i]->GetX());
-            CheckDestoyableObjects(vecBombs[i]);
+            //CheckDestoyableObjects(vecBombs[i]);
+            gndObj = vecBombs[i]->CheckDestroyableGroundObjects();
+            if (gndObj != nullptr){
+                score += gndObj->GetScore();
+                for (auto bomb : vecBombs)
+                    bomb->RemoveObserver(gndObj);
+                DeleteStaticObj(gndObj);
+            }
             DeleteDynamicObj(vecBombs[i]);
         }
     }
@@ -360,6 +371,10 @@ void SBomber::DropBomb()
         pBomb->SetSpeed(2);
         pBomb->SetPos(x, y);
         pBomb->SetWidth(SMALL_CRATER_SIZE);
+
+        vector<DestroyableGroundObject*> vecDestoyableObjects = FindDestoyableGroundObjects();
+        for (auto obj : vecDestoyableObjects)
+            pBomb->AddObserver(obj);
 
         vecDynamicObj.push_back(pBomb);
         bombsNumber--;
