@@ -42,3 +42,7 @@ void Tank::Draw() const
 	GotoXY(x,y);
 	cout << " ###########";
 }
+
+bool Tank::HandleInsideCheck(double x, double y) const {
+	return isInside(x, y);
+}
