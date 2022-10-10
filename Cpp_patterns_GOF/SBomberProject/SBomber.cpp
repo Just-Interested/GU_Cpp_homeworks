@@ -8,6 +8,7 @@
 #include "Ground.h"
 #include "Tank.h"
 #include "House.h"
+#include "TanksPlaneMediator.h"
 
 using namespace std;
 using namespace MyTools;
@@ -71,6 +72,9 @@ SBomber::SBomber()
     pBomb->SetSize(SMALL_CRATER_SIZE);
     vecDynamicObj.push_back(pBomb);
     */
+
+   NotifiableObject::pMediator = new TanksPlaneMediator;
+   NotifiableObject::pMediator->AddNotifiableObject(pGUI);
 }
 
 SBomber::~SBomber()
@@ -128,7 +132,7 @@ void SBomber::CheckBombsAndGround()
     const double y = pGround->GetY();
     for (size_t i = 0; i < vecBombs.size(); i++)
     {
-        if (vecBombs[i]->GetY() >= y) // Пересечение бомбы с землей
+        if (vecBombs[i]->GetY() >= y) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         {
             pGround->AddCrater(vecBombs[i]->GetX());
             CheckDestoyableObjects(vecBombs[i]);

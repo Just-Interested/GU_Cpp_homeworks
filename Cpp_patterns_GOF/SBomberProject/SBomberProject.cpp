@@ -3,6 +3,7 @@
 
 #include "SBomber.h"
 #include "MyTools.h"
+#include "Windows.h"
 
 using namespace std;
 
@@ -27,6 +28,7 @@ int main(void)
         game.DrawFrame();
         game.MoveObjects();
         game.CheckObjects();
+        Sleep(30);
 
         game.TimeFinish();
 

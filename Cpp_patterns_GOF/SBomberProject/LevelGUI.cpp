@@ -40,6 +40,8 @@ void LevelGUI::Draw() const
     cout << "BombsNum: " << bombsNumber;
     GotoXY(62, 1);
     cout << "Score: " << score;
+    GotoXY(5, height + 2);
+    cout << GetTopNotification();
 }
 
 void __fastcall LevelGUI::SetParam(uint64_t passedTimeNew, uint64_t fpsNew, uint16_t bombsNumberNew, int16_t scoreNew)
@@ -48,4 +50,21 @@ void __fastcall LevelGUI::SetParam(uint64_t passedTimeNew, uint64_t fpsNew, uint
     fps = fpsNew;
     bombsNumber = bombsNumberNew;
     score = scoreNew;
+}
+
+void LevelGUI::BeNotified(std::string info) {
+    notifications.push_back(info);
+}
+
+std::string LevelGUI::GetTopNotification() const {                                   
+    if ((passedTime - lastNotificationTime) / 1000 > 1 ){
+        if (!notifications.empty()){
+            topNotification = notifications.front();
+            notifications.erase(notifications.begin());
+        }
+        else
+            topNotification = "                                      ";
+        lastNotificationTime = passedTime;
+    }
+    return topNotification;
 }

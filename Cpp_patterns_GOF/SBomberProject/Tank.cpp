@@ -1,5 +1,8 @@
 
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <Windows.h>
 
 #include "Tank.h"
 #include "MyTools.h"
@@ -14,19 +17,22 @@ bool Tank::isInside(double x1, double x2) const
 
 	if (x1 < XBeg && x2 > XEnd)
 	{
+		pMediator->Notify(this, "Baaadaa Boom!");
 		return true;
 	}
 
 	if (x1 > XBeg && x1 < XEnd)
 	{
+		pMediator->Notify(this, "Nooooo...");
 		return true;
 	}
 
 	if (x2 > XBeg && x2 < XEnd)
 	{
+		pMediator->Notify(this, "That's hurt!");
 		return true;
 	}
-
+	pMediator->Notify(this, "Looser!");
 	return false;
 }
 
