@@ -3,8 +3,9 @@
 #include <stdint.h>
 
 #include "DestroyableGroundObject.h"
+#include "Mediator.h"
 
-class Tank : public DestroyableGroundObject
+class Tank : public DestroyableGroundObject, public NotifiableObject
 {
 public:
 
@@ -13,6 +14,8 @@ public:
 	inline uint16_t GetScore() const override { return score; }
 
 	void Draw() const override;
+
+	void BeNotified(std::string info) override {};
 
 private:
 

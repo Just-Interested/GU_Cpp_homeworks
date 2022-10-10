@@ -1,5 +1,7 @@
 
 #include <conio.h>
+#include <cstdlib>
+#include <ctime>
 #include <windows.h>
 
 #include "MyTools.h"
@@ -8,6 +10,9 @@
 #include "Ground.h"
 #include "Tank.h"
 #include "House.h"
+#include "TanksPlaneMediator.h"
+#include "ColorPlane.h"
+#include "BigPlane.h"
 
 using namespace std;
 using namespace MyTools;
@@ -24,7 +29,13 @@ SBomber::SBomber()
 {
     WriteToLog(string(__FUNCTION__) + " was invoked");
 
-    Plane* p = new Plane;
+    Plane* p;
+    std::srand(std::time(0));
+    if (std::rand() % 2 == 0)
+        p = new ColorPlane;
+    else
+        p = new BigPlane;
+
     p->SetDirection(1, 0.1);
     p->SetSpeed(4);
     p->SetPos(5, 10);
@@ -71,6 +82,9 @@ SBomber::SBomber()
     pBomb->SetSize(SMALL_CRATER_SIZE);
     vecDynamicObj.push_back(pBomb);
     */
+
+   NotifiableObject::pMediator = new TanksPlaneMediator;
+   NotifiableObject::pMediator->AddNotifiableObject(pGUI);
 }
 
 SBomber::~SBomber()
@@ -128,7 +142,7 @@ void SBomber::CheckBombsAndGround()
     const double y = pGround->GetY();
     for (size_t i = 0; i < vecBombs.size(); i++)
     {
-        if (vecBombs[i]->GetY() >= y) // Пересечение бомбы с землей
+        if (vecBombs[i]->GetY() >= y) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         {
             pGround->AddCrater(vecBombs[i]->GetX());
             CheckDestoyableObjects(vecBombs[i]);
