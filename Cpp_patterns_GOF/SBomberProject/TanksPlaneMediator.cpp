@@ -1,8 +1,6 @@
 #include "TanksPlaneMediator.h"
 #include "MyTools.h"
 
-#include <Windows.h>
-
 void TanksPlaneMediator::AddNotifiableObject(NotifiableObject* newNotifiableObject){
     _notifiableObjects.push_back(newNotifiableObject);
 }
