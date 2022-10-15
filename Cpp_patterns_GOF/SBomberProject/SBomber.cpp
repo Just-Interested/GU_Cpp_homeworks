@@ -1,4 +1,7 @@
 
+#include <cstdlib>
+#include <iostream>
+#include <ctime>
 #include <conio.h>
 #include <windows.h>
 
@@ -128,7 +131,7 @@ void SBomber::CheckBombsAndGround()
     const double y = pGround->GetY();
     for (size_t i = 0; i < vecBombs.size(); i++)
     {
-        if (vecBombs[i]->GetY() >= y) // Пересечение бомбы с землей
+        if (vecBombs[i]->GetY() >= y) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         {
             pGround->AddCrater(vecBombs[i]->GetX());
             CheckDestoyableObjects(vecBombs[i]);
@@ -299,6 +302,10 @@ void SBomber::ProcessKBHit()
         DropBomb();
         break;
 
+    case 'd':
+        DuplicateDestroyableObject();
+        break;
+
     default:
         break;
     }
@@ -364,5 +371,37 @@ void SBomber::DropBomb()
         vecDynamicObj.push_back(pBomb);
         bombsNumber--;
         score -= Bomb::BombCost;
+    }
+}
+
+void SBomber::DuplicateDestroyableObject(){
+    WriteToLog(string(__FUNCTION__) + " was invoked");
+    vector<DestroyableGroundObject*> vec = FindDestoyableGroundObjects();
+    srand(time(0));
+    int random = rand() % vec.size();
+    Ground* pGr = FindGround();
+    DestroyableGroundObject* pObj = vec[random]->Clone();
+    const double size = pObj->GetWidth();
+    const double minX = pGr->GetX() + 1;
+    const double maxX = pGr->GetX() + pGr->GetWidth() - size - 1;
+    double freePosition;
+    for (double i = minX; i < maxX; i++){
+        freePosition = i;
+        for (auto v : vec){
+            if(v->isInside(i, i + size)){
+                freePosition = -1;
+                break;
+            }
+        }
+        if (freePosition > 0)
+            break;
+    }
+    if (freePosition > 0){
+        pObj->SetPos(freePosition, pGr->GetY() -1);
+        vecStaticObj.push_back(pObj);
+    }
+    else {
+        WriteToLog(string(__FUNCTION__) + " was invoked. No space available for new object!");
+        delete pObj;
     }
 }
