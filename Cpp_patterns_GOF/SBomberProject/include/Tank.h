@@ -14,6 +14,12 @@ public:
 
 	void Draw() const override;
 
+	Tank* Clone() const override;
+
+	Tank(const Tank& tank);
+
+	Tank() = default;
+
 private:
 
 	const uint16_t score = 30;

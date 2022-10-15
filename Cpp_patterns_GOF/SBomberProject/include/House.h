@@ -14,6 +14,12 @@ public:
 
 	void Draw() const override;
 
+	House* Clone() const override;
+
+	House() = default;
+
+	House(const House& house);
+
 private:
 
 	const uint16_t score = 40;

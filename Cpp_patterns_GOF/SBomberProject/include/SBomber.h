@@ -42,6 +42,8 @@ private:
 
     void DropBomb();
 
+    void DuplicateDestroyableObject();
+
     std::vector<DynamicObject*> vecDynamicObj;
     std::vector<GameObject*> vecStaticObj;
     
