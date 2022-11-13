@@ -70,10 +70,21 @@ int main(int argc, char const *argv[])
         recv_len = recvfrom(sock, buffer, sizeof(buffer) - 1, 0,
                             reinterpret_cast<sockaddr *>(&client_address),
                             &client_address_len);
-
+        std::string tmp;
+        char hbuf[NI_MAXHOST];
         if (recv_len > 0)
         {
             buffer[recv_len] = '\0';
+            tmp = std::string(buffer);
+            if (tmp == "exit\n")
+            {
+                std::cout << "Server shutdown!" << std::endl;
+                break;
+            }
+            if (getnameinfo(reinterpret_cast<const sockaddr*>(&client_address), client_address_len, hbuf, sizeof(hbuf), nullptr, 0, NI_NAMEREQD))
+                std::cout << "could not resolve hostname" << std::endl;
+            else
+                std::cout << "host: " << hbuf << std::endl;
             std::cout
                 << "Client with address "
                 << inet_ntop(AF_INET, &client_address.sin_addr, client_address_buf, sizeof(client_address_buf) / sizeof(client_address_buf[0]))
