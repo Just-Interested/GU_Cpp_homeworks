@@ -60,22 +60,22 @@ ssize_t write(int fd, const void *buf, size_t count)
 {
     auto char_buf = reinterpret_cast<const char*>(buf);
 
-    if (char_buf && (count > 1) && (fd == socket_fd))
+    FILE* log_file = fopen("intercept.log", "w");
+    if (log_file != NULL)
     {
-        printf("> write() on the socket was called with a string!\n");
-        printf("New buffer = [");
-
-        for (size_t i = 0; i < count - 1; ++i)
+        if (char_buf && (count > 1) && (fd == socket_fd))
         {
-            int r = rand();
-            char *c = const_cast<char *>(char_buf) + i;
-
-            // ASCII symbol.
-            if (1 == r % count) *c = r % (0x7f - 0x20) + 0x20;
-
-            putchar(*c);
+            printf("> write() on the socket was called with a string!\n");
+            printf("New buffer = [");
+            for (size_t i = 0; i < count - 1; ++i)
+            {
+                char *c = const_cast<char *>(char_buf) + i;
+                putchar(*c);
+            }
+            printf("]\n");
+            fprintf(log_file, "Data received: \n%s\n", char_buf);
         }
-        printf("]\n");
+        fclose(log_file);   
     }
 
     return old_write(fd, buf, count);
