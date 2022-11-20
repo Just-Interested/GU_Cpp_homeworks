@@ -32,7 +32,7 @@ int main(int argc, char const * const argv[])
     struct sockaddr_in addr = {.sin_family = PF_INET, .sin_port = htons(port)};
     addr.sin_addr.s_addr = htonl(INADDR_ANY);
 
-    socket_wrapper::Socket sock(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+    socket_wrapper::Socket sock(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
     if (!sock)
     {
@@ -49,12 +49,27 @@ int main(int argc, char const * const argv[])
         return EXIT_FAILURE;
     }
 
+    if (listen(sock, 10) == -1)
+    {
+        std::cerr << sock_wrap.get_last_error_string() << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    struct sockaddr_storage client_addr = {0};
+    socklen_t client_len = sizeof(client_addr);
+
     char buffer[buffer_size] = {};
 
     while (true)
     {
+        socket_wrapper::Socket new_connect_fd = accept(sock, reinterpret_cast<sockaddr *>(&client_addr), &client_len);
 
-        if (recv(sock, buffer, sizeof(buffer) - 1, 0) < 0)
+        if (new_connect_fd < 0){
+            std::cerr << sock_wrap.get_last_error_string() << std::endl;
+            return EXIT_FAILURE;
+        }
+
+        if (recv(new_connect_fd, buffer, sizeof(buffer) - 1, 0) < 0)
         {
             std::cerr << sock_wrap.get_last_error_string() << std::endl;
             return EXIT_FAILURE;
