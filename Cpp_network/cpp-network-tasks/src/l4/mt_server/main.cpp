@@ -149,6 +149,38 @@ public:
         return true;
     }
 
+    bool send_file_part(fs::path const& file_path, int offset, int size)
+    {
+        std::vector<char> buffer(buffer_size);
+        std::ifstream file_stream(file_path, std::ifstream::binary);
+        int n_bytes_transmitted = 0;
+
+        if (!file_stream) return false;
+
+        int file_size = file_stream.seekg(0, std::ios::end).tellg();
+        file_stream.seekg(offset, std::ios::beg);
+        int n_transmit_bytes = ((file_size - offset) < size) ? (file_size - offset) : size;
+
+        if (n_transmit_bytes <= 0) {
+            std::cout << "Nothing to transmit! File size = " << file_size << ", offset = " << offset << std::endl;
+            return false;
+        }
+
+        std::cout << "Sending file part (offset=" << offset << " , size=" << size << ") " << file_path << "..." << std::endl;
+        while (file_stream && n_bytes_transmitted < n_transmit_bytes)
+        {
+            int n = ((n_transmit_bytes - n_bytes_transmitted) > buffer_size) ? buffer_size : (n_transmit_bytes - n_bytes_transmitted);
+            file_stream.read(&buffer[0], n);
+            n_bytes_transmitted += n;
+            if (!send_buffer(buffer)) {
+                std::cout << "Send buffer error!" << std::endl;
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     std::string get_request()
     {
         std::array<char, MAX_PATH + 1> buffer;
@@ -248,7 +280,9 @@ public:
     {
         if (!(fs::exists(file_path) && fs::is_regular_file(file_path))) return false;
 
-        return tsr_.send_file(file_path);
+        //return tsr_.send_file(file_path);
+        // just little test for send_file_part
+        return tsr_.send_file_part(file_path, 7, 3);
     }
 
     bool process()
