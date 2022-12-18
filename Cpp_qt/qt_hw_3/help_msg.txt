@@ -1,0 +1,4 @@
+Simple text editor.
+Version 0.0.1
+
+Author <..add later...>
