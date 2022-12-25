@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/help">
+        <file>help_msg.txt</file>
+    </qresource>
+    <qresource prefix="/translator">
+        <file>texteditor_ru.qm</file>
+    </qresource>
+</RCC>
