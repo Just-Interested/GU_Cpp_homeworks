@@ -35,12 +35,21 @@ MainWindow::MainWindow(QWidget *parent)
     ui->menuEdit->setTitle(tr("Edit"));
     ui->menuHelp->setTitle(tr("Help"));
     ui->menuLanguage->setTitle(tr("Language"));
+    ui->menuStyleSheet->setTitle(tr("StyleSheets"));
 
-    QActionGroup* act_group = new QActionGroup(this);
-    act_group->addAction(ui->actionRussian);
-    act_group->addAction(ui->actionEnglish);
-    connect(ui->actionRussian, &QAction::triggered, this, &MainWindow::on_language_changed);
-    connect(ui->actionEnglish, &QAction::triggered, this, &MainWindow::on_language_changed);
+    QActionGroup* edit_lang_gr = new QActionGroup(this);
+    edit_lang_gr->addAction(ui->actionRussian);
+    edit_lang_gr->addAction(ui->actionEnglish);
+    ui->actionEnglish->setChecked(true);
+    connect(ui->actionRussian, &QAction::triggered, this, &MainWindow::language_changed);
+    connect(ui->actionEnglish, &QAction::triggered, this, &MainWindow::language_changed);
+
+    QActionGroup* edit_styles_gr = new QActionGroup(this);
+    edit_styles_gr->addAction(ui->actionDark);
+    edit_styles_gr->addAction(ui->actionDefault);
+    ui->actionDefault->setChecked(true);
+    connect(ui->actionDark, &QAction::triggered, this, &MainWindow::set_dark_stylesheet);
+    connect(ui->actionDefault, &QAction::triggered, this, &MainWindow::set_default_stylesheet);
 
     ui->actionNew->setText(tr("New"));
     connect(ui->actionNew, &QAction::triggered, this, &MainWindow::on_pushButton_new_clicked);
@@ -171,12 +180,27 @@ void MainWindow::hotkeyChanged(QTableWidgetItem * item)
     }
 }
 
-void MainWindow::on_language_changed()
+void MainWindow::language_changed()
 {
     if (ui->actionEnglish->isChecked())
         qApp->removeTranslator(&translater);
     else
         qApp->installTranslator(&translater);
     ui->retranslateUi(this);
+}
+
+void MainWindow::set_dark_stylesheet()
+{
+    QFile file(":/stylesheets/qt_dark_theme.qss");
+    if (file.open(QFile::ReadOnly)){
+        QTextStream stream(&file);
+        qApp->setStyleSheet(stream.readAll());
+        file.close();
+    }
+}
+
+void MainWindow::set_default_stylesheet()
+{
+    qApp->setStyleSheet(styleSheet());
 }
 

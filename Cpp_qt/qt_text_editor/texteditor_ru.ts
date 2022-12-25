@@ -22,31 +22,31 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="31"/>
-        <location filename="mainwindow.ui" line="129"/>
+        <location filename="mainwindow.ui" line="137"/>
         <location filename="mainwindow.cpp" line="23"/>
-        <location filename="mainwindow.cpp" line="45"/>
+        <location filename="mainwindow.cpp" line="54"/>
         <source>New</source>
         <translation type="unfinished">Новый</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="38"/>
-        <location filename="mainwindow.ui" line="134"/>
+        <location filename="mainwindow.ui" line="142"/>
         <location filename="mainwindow.cpp" line="24"/>
-        <location filename="mainwindow.cpp" line="51"/>
+        <location filename="mainwindow.cpp" line="60"/>
         <source>Open</source>
         <translation type="unfinished">Открыть</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="45"/>
-        <location filename="mainwindow.ui" line="139"/>
+        <location filename="mainwindow.ui" line="147"/>
         <location filename="mainwindow.cpp" line="25"/>
-        <location filename="mainwindow.cpp" line="57"/>
+        <location filename="mainwindow.cpp" line="66"/>
         <source>Save</source>
         <translation type="unfinished">Сохранить</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="52"/>
-        <location filename="mainwindow.ui" line="118"/>
+        <location filename="mainwindow.ui" line="126"/>
         <location filename="mainwindow.cpp" line="26"/>
         <location filename="mainwindow.cpp" line="36"/>
         <source>Help</source>
@@ -54,17 +54,17 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="59"/>
-        <location filename="mainwindow.ui" line="144"/>
+        <location filename="mainwindow.ui" line="152"/>
         <location filename="mainwindow.cpp" line="28"/>
-        <location filename="mainwindow.cpp" line="75"/>
+        <location filename="mainwindow.cpp" line="84"/>
         <source>Shortcuts</source>
         <translation type="unfinished">Горячие клавиши</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="66"/>
-        <location filename="mainwindow.ui" line="154"/>
+        <location filename="mainwindow.ui" line="162"/>
         <location filename="mainwindow.cpp" line="27"/>
-        <location filename="mainwindow.cpp" line="63"/>
+        <location filename="mainwindow.cpp" line="72"/>
         <source>Exit</source>
         <translation type="unfinished">Выход</translation>
     </message>
@@ -88,20 +88,43 @@
         <translation type="unfinished">Правка</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="149"/>
-        <location filename="mainwindow.cpp" line="69"/>
+        <location filename="mainwindow.ui" line="115"/>
+        <location filename="mainwindow.cpp" line="38"/>
+        <source>StyleSheets</source>
+        <oldsource>StyleSheet</oldsource>
+        <translation type="unfinished">Стили</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="157"/>
+        <location filename="mainwindow.cpp" line="78"/>
         <source>Context Help</source>
         <translation type="unfinished">Контекстная справка</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="165"/>
+        <location filename="mainwindow.ui" line="173"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="173"/>
+        <location filename="mainwindow.ui" line="181"/>
         <source>Русский</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="189"/>
+        <source>Dark</source>
+        <translation type="unfinished">Темный</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="197"/>
+        <source>Default</source>
+        <translation type="unfinished">По умолчанию</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="115"/>
+        <location filename="mainwindow.cpp" line="38"/>
+        <source>StyleSheets</source>
+        <translation type="unfinished">Стили</translation>
     </message>
 </context>
 <context>

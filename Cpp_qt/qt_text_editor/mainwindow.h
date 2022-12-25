@@ -42,7 +42,11 @@ private slots:
 
     void hotkeyChanged(QTableWidgetItem*);
 
-    void on_language_changed();
+    void language_changed();
+
+    void set_dark_stylesheet();
+
+    void set_default_stylesheet();
 
 private:
     Ui::MainWindow *ui;

@@ -5,4 +5,7 @@
     <qresource prefix="/translator">
         <file>texteditor_ru.qm</file>
     </qresource>
+    <qresource prefix="/stylesheets">
+        <file>qt_dark_theme.qss</file>
+    </qresource>
 </RCC>

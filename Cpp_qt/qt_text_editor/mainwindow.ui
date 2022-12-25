@@ -110,8 +110,16 @@
      <addaction name="actionEnglish"/>
      <addaction name="actionRussian"/>
     </widget>
+    <widget class="QMenu" name="menuStyleSheet">
+     <property name="title">
+      <string>StyleSheets</string>
+     </property>
+     <addaction name="actionDark"/>
+     <addaction name="actionDefault"/>
+    </widget>
     <addaction name="actionShortcuts"/>
     <addaction name="menuLanguage"/>
+    <addaction name="menuStyleSheet"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -171,6 +179,22 @@
    </property>
    <property name="text">
     <string>Русский</string>
+   </property>
+  </action>
+  <action name="actionDark">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Dark</string>
+   </property>
+  </action>
+  <action name="actionDefault">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Default</string>
    </property>
   </action>
  </widget>
