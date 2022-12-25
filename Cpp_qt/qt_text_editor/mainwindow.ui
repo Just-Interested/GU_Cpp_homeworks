@@ -74,6 +74,13 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_print">
+          <property name="text">
+           <string>Print</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>
@@ -96,6 +103,7 @@
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
+    <addaction name="actionPrint"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -195,6 +203,11 @@
    </property>
    <property name="text">
     <string>Default</string>
+   </property>
+  </action>
+  <action name="actionPrint">
+   <property name="text">
+    <string>Print</string>
    </property>
   </action>
  </widget>

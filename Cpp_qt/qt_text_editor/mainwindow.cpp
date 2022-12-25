@@ -10,6 +10,8 @@
 #include <QMenu>
 #include <QTableWidget>
 #include <QActionGroup>
+#include <QPrinter>
+#include <QPrintDialog>
 
 
 
@@ -26,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->pushButton_help->setText(tr("Help"));
     ui->pushButton_exit->setText(tr("Exit"));
     ui->pushButton_short->setText(tr("Shortcuts"));
+    ui->pushButton_print->setText(tr("Print"));
+    connect(ui->pushButton_print, &QPushButton::clicked, this, &MainWindow::print_text);
 
     ui->comboBox_lang->addItem("English");
     ui->comboBox_lang->addItem("Русский");
@@ -83,6 +87,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->actionShortcuts->setText(tr("Shortcuts"));
     connect(ui->actionShortcuts, &QAction::triggered, this, &MainWindow::on_pushButton_short_clicked);
+
+    ui->actionPrint->setText(tr("Print"));
+    connect(ui->actionPrint, &QAction::triggered, this, &MainWindow::print_text);
 
     // Заполняем QTableWidget данными о хоткеях и устанавливаем делегат для обработки событий KeyPress
     QTableWidget *shortcuts_tbl = shortcuts_dlg.findChild<QTableWidget *>("tableWidget");
@@ -202,5 +209,15 @@ void MainWindow::set_dark_stylesheet()
 void MainWindow::set_default_stylesheet()
 {
     qApp->setStyleSheet(styleSheet());
+}
+
+void MainWindow::print_text()
+{
+    QPrinter printer;
+    QPrintDialog print_dlg(&printer, this);
+    print_dlg.setWindowTitle(tr("Print"));
+    if (print_dlg.exec() != QDialog::Accepted)
+        return;
+    ui->plainTextEdit->print(&printer);
 }
 

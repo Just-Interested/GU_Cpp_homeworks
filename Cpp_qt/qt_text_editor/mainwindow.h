@@ -48,6 +48,8 @@ private slots:
 
     void set_default_stylesheet();
 
+    void print_text();
+
 private:
     Ui::MainWindow *ui;
     QTranslator translater;
