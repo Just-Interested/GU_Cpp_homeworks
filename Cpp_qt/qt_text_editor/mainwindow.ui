@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPlainTextEdit" name="plainTextEdit"/>
+       <widget class="QTextEdit" name="plainTextEdit"/>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -125,9 +125,30 @@
      <addaction name="actionDark"/>
      <addaction name="actionDefault"/>
     </widget>
+    <widget class="QMenu" name="menuFormat">
+     <property name="title">
+      <string>Format</string>
+     </property>
+     <widget class="QMenu" name="menuAlignment">
+      <property name="title">
+       <string>Alignment</string>
+      </property>
+      <addaction name="actionLeft"/>
+      <addaction name="actionRight"/>
+      <addaction name="actionCenter"/>
+     </widget>
+     <addaction name="actionGet_font"/>
+     <addaction name="actionSet_font"/>
+     <addaction name="actionRandomize_font"/>
+     <addaction name="actionChange_font"/>
+     <addaction name="separator"/>
+     <addaction name="menuAlignment"/>
+    </widget>
     <addaction name="actionShortcuts"/>
     <addaction name="menuLanguage"/>
     <addaction name="menuStyleSheet"/>
+    <addaction name="separator"/>
+    <addaction name="menuFormat"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -208,6 +229,41 @@
   <action name="actionPrint">
    <property name="text">
     <string>Print</string>
+   </property>
+  </action>
+  <action name="actionGet_font">
+   <property name="text">
+    <string>Get font</string>
+   </property>
+  </action>
+  <action name="actionSet_font">
+   <property name="text">
+    <string>Set font</string>
+   </property>
+  </action>
+  <action name="actionRandomize_font">
+   <property name="text">
+    <string>Randomize font</string>
+   </property>
+  </action>
+  <action name="actionLeft">
+   <property name="text">
+    <string>Left</string>
+   </property>
+  </action>
+  <action name="actionRight">
+   <property name="text">
+    <string>Right</string>
+   </property>
+  </action>
+  <action name="actionCenter">
+   <property name="text">
+    <string>Center</string>
+   </property>
+  </action>
+  <action name="actionChange_font">
+   <property name="text">
+    <string>Change font ...</string>
    </property>
   </action>
  </widget>

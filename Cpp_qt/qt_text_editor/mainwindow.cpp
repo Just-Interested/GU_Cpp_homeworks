@@ -12,6 +12,8 @@
 #include <QActionGroup>
 #include <QPrinter>
 #include <QPrintDialog>
+#include <QFontDatabase>
+#include <QFontDialog>
 
 
 
@@ -91,6 +93,29 @@ MainWindow::MainWindow(QWidget *parent)
     ui->actionPrint->setText(tr("Print"));
     connect(ui->actionPrint, &QAction::triggered, this, &MainWindow::print_text);
 
+    ui->actionGet_font->setText(tr("Get font"));
+    connect(ui->actionGet_font, &QAction::triggered, this, &MainWindow::get_font_format);
+
+    ui->actionSet_font->setText(tr("Set font"));
+    connect(ui->actionSet_font, &QAction::triggered, this, &MainWindow::set_font_format);
+
+    ui->actionRandomize_font->setText(tr("Randomize font"));
+    connect(ui->actionRandomize_font, &QAction::triggered, this, &MainWindow::randomize_font_format);
+
+    ui->menuFormat->setTitle(tr("Format"));
+
+    ui->actionCenter->setText(tr("Center"));
+    connect(ui->actionCenter, &QAction::triggered, this, &MainWindow::set_alignment_center);
+
+    ui->actionLeft->setText(tr("Left"));
+    connect(ui->actionLeft, &QAction::triggered, this, &MainWindow::set_alignment_left);
+
+    ui->actionRight->setText(tr("Right"));
+    connect(ui->actionRight, &QAction::triggered, this, &MainWindow::set_alignment_right);
+
+    ui->actionChange_font->setText(tr("Change font ..."));
+    connect(ui->actionChange_font, &QAction::triggered, this, &MainWindow::change_font);
+
     // Заполняем QTableWidget данными о хоткеях и устанавливаем делегат для обработки событий KeyPress
     QTableWidget *shortcuts_tbl = shortcuts_dlg.findChild<QTableWidget *>("tableWidget");
     if (shortcuts_tbl != nullptr){
@@ -105,6 +130,7 @@ MainWindow::MainWindow(QWidget *parent)
         }
         connect(shortcuts_tbl, &QTableWidget::itemChanged, this, &MainWindow::hotkeyChanged);
     }
+    srand(clock());
 }
 
 MainWindow::~MainWindow()
@@ -221,3 +247,46 @@ void MainWindow::print_text()
     ui->plainTextEdit->print(&printer);
 }
 
+void MainWindow::get_font_format(){
+    last_format = ui->plainTextEdit->textCursor().charFormat();
+}
+
+void MainWindow::set_font_format(){
+    ui->plainTextEdit->textCursor().setCharFormat(last_format);
+}
+
+void MainWindow::change_font()
+{
+    bool ok;
+    QFont font = QFontDialog::getFont(&ok, this);
+    if (ok){
+        QTextCharFormat fmt = ui->plainTextEdit->textCursor().charFormat();
+        fmt.setFont(font);
+        ui->plainTextEdit->textCursor().setCharFormat(fmt);
+    }
+}
+
+void MainWindow::randomize_font_format(){
+    QTextCharFormat fmt;
+    fmt.setForeground(QBrush(QColor(rand() % 256,rand() % 256, rand() % 256)));
+    fmt.setBackground(QBrush(QColor(rand() % 256,rand() % 256, rand() % 256)));
+    fmt.setFontPointSize((rand() % 21) + 10);
+    QStringList families = QFontDatabase::families();
+    fmt.setFontFamily(families[rand() % families.length()]);
+    ui->plainTextEdit->textCursor().setCharFormat(fmt);
+}
+
+void MainWindow::set_alignment_left()
+{
+    ui->plainTextEdit->setAlignment(Qt::AlignLeft);
+}
+
+void MainWindow::set_alignment_right()
+{
+    ui->plainTextEdit->setAlignment(Qt::AlignRight);
+}
+
+void MainWindow::set_alignment_center()
+{
+    ui->plainTextEdit->setAlignment(Qt::AlignCenter);
+}

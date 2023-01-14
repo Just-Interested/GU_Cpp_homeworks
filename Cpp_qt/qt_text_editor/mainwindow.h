@@ -7,6 +7,7 @@
 #include <QShortcut>
 #include <QTranslator>
 #include <QTableWidgetItem>
+#include <QTextCharFormat>
 
 #include "shortcuts.h"
 
@@ -50,11 +51,25 @@ private slots:
 
     void print_text();
 
+    void get_font_format();
+
+    void set_font_format();
+
+    void change_font();
+
+    void randomize_font_format();
+
+    void set_alignment_left();
+
+    void set_alignment_right();
+
+    void set_alignment_center();
+
 private:
     Ui::MainWindow *ui;
     QTranslator translater;
     QMap<QString, QSharedPointer<QShortcut>> shortcuts;
     Shortcuts shortcuts_dlg;
-    //QTableWidget *shortcuts_tbl;
+    QTextCharFormat last_format;
 };
 #endif // MAINWINDOW_H
