@@ -15,7 +15,8 @@ class FileSystemViewer : public QWidget
     Q_OBJECT
 public:
     explicit FileSystemViewer(QWidget *parent = nullptr);
-
+    QString GetCurrentPath() const {return current_path;}
+    void SetActiveItem(QString);
 signals:
 
 private:
@@ -27,6 +28,7 @@ private:
 
 public slots:
     void item_selected(QModelIndex);
+//    void item_search(QString);
 };
 
 #endif // FILESYSTEMVIEWER_H
