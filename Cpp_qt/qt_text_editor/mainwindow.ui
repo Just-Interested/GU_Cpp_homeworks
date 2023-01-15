@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>747</width>
+    <height>604</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -92,7 +92,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>747</width>
      <height>26</height>
     </rect>
    </property>
@@ -144,11 +144,19 @@
      <addaction name="separator"/>
      <addaction name="menuAlignment"/>
     </widget>
+    <widget class="QMenu" name="menuInsert">
+     <property name="title">
+      <string>Insert</string>
+     </property>
+     <addaction name="actionDate"/>
+     <addaction name="actionTime"/>
+    </widget>
     <addaction name="actionShortcuts"/>
     <addaction name="menuLanguage"/>
     <addaction name="menuStyleSheet"/>
     <addaction name="separator"/>
     <addaction name="menuFormat"/>
+    <addaction name="menuInsert"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -264,6 +272,16 @@
   <action name="actionChange_font">
    <property name="text">
     <string>Change font ...</string>
+   </property>
+  </action>
+  <action name="actionDate">
+   <property name="text">
+    <string>Current Date</string>
+   </property>
+  </action>
+  <action name="actionTime">
+   <property name="text">
+    <string>Current Time</string>
    </property>
   </action>
  </widget>

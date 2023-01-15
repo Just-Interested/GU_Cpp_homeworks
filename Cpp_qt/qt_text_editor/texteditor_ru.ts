@@ -22,90 +22,90 @@
     </message>
     <message>
         <location filename="mainwindow.ui" line="31"/>
-        <location filename="mainwindow.ui" line="166"/>
-        <location filename="mainwindow.cpp" line="27"/>
-        <location filename="mainwindow.cpp" line="60"/>
+        <location filename="mainwindow.ui" line="174"/>
+        <location filename="mainwindow.cpp" line="28"/>
+        <location filename="mainwindow.cpp" line="61"/>
         <source>New</source>
         <translation type="unfinished">Новый</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="38"/>
-        <location filename="mainwindow.ui" line="171"/>
-        <location filename="mainwindow.cpp" line="28"/>
-        <location filename="mainwindow.cpp" line="66"/>
+        <location filename="mainwindow.ui" line="179"/>
+        <location filename="mainwindow.cpp" line="29"/>
+        <location filename="mainwindow.cpp" line="67"/>
         <source>Open</source>
         <translation type="unfinished">Открыть</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="45"/>
-        <location filename="mainwindow.ui" line="176"/>
-        <location filename="mainwindow.cpp" line="29"/>
-        <location filename="mainwindow.cpp" line="72"/>
+        <location filename="mainwindow.ui" line="184"/>
+        <location filename="mainwindow.cpp" line="30"/>
+        <location filename="mainwindow.cpp" line="73"/>
         <source>Save</source>
         <translation type="unfinished">Сохранить</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="52"/>
-        <location filename="mainwindow.ui" line="155"/>
-        <location filename="mainwindow.cpp" line="30"/>
-        <location filename="mainwindow.cpp" line="42"/>
+        <location filename="mainwindow.ui" line="163"/>
+        <location filename="mainwindow.cpp" line="31"/>
+        <location filename="mainwindow.cpp" line="43"/>
         <source>Help</source>
         <translation type="unfinished">Справка</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="59"/>
-        <location filename="mainwindow.ui" line="181"/>
-        <location filename="mainwindow.cpp" line="32"/>
-        <location filename="mainwindow.cpp" line="90"/>
+        <location filename="mainwindow.ui" line="189"/>
+        <location filename="mainwindow.cpp" line="33"/>
+        <location filename="mainwindow.cpp" line="91"/>
         <source>Shortcuts</source>
         <translation type="unfinished">Горячие клавиши</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="66"/>
-        <location filename="mainwindow.ui" line="191"/>
-        <location filename="mainwindow.cpp" line="31"/>
-        <location filename="mainwindow.cpp" line="78"/>
+        <location filename="mainwindow.ui" line="199"/>
+        <location filename="mainwindow.cpp" line="32"/>
+        <location filename="mainwindow.cpp" line="79"/>
         <source>Exit</source>
         <translation type="unfinished">Выход</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="73"/>
         <location filename="mainwindow.ui" line="116"/>
-        <location filename="mainwindow.cpp" line="43"/>
+        <location filename="mainwindow.cpp" line="44"/>
         <source>Language</source>
         <translation type="unfinished">Язык</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="80"/>
-        <location filename="mainwindow.ui" line="231"/>
-        <location filename="mainwindow.cpp" line="33"/>
-        <location filename="mainwindow.cpp" line="93"/>
-        <location filename="mainwindow.cpp" line="244"/>
+        <location filename="mainwindow.ui" line="239"/>
+        <location filename="mainwindow.cpp" line="34"/>
+        <location filename="mainwindow.cpp" line="94"/>
+        <location filename="mainwindow.cpp" line="253"/>
         <source>Print</source>
         <translation type="unfinished">Печать</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="101"/>
-        <location filename="mainwindow.cpp" line="40"/>
+        <location filename="mainwindow.cpp" line="41"/>
         <source>File</source>
         <translation type="unfinished">Файл</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="112"/>
-        <location filename="mainwindow.cpp" line="41"/>
+        <location filename="mainwindow.cpp" line="42"/>
         <source>Edit</source>
         <translation type="unfinished">Правка</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="123"/>
-        <location filename="mainwindow.cpp" line="44"/>
+        <location filename="mainwindow.cpp" line="45"/>
         <source>StyleSheets</source>
         <oldsource>StyleSheet</oldsource>
         <translation type="unfinished">Стили</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="130"/>
-        <location filename="mainwindow.cpp" line="105"/>
+        <location filename="mainwindow.cpp" line="106"/>
         <source>Format</source>
         <translation type="unfinished">Форматирование</translation>
     </message>
@@ -115,72 +115,90 @@
         <translation type="unfinished">Выравнивание</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="186"/>
-        <location filename="mainwindow.cpp" line="84"/>
+        <location filename="mainwindow.ui" line="149"/>
+        <location filename="mainwindow.cpp" line="120"/>
+        <source>Insert</source>
+        <translation type="unfinished">Вставка</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="194"/>
+        <location filename="mainwindow.cpp" line="85"/>
         <source>Context Help</source>
         <translation type="unfinished">Контекстная справка</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="202"/>
+        <location filename="mainwindow.ui" line="210"/>
         <source>English</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="210"/>
+        <location filename="mainwindow.ui" line="218"/>
         <source>Русский</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="218"/>
+        <location filename="mainwindow.ui" line="226"/>
         <source>Dark</source>
         <translation type="unfinished">Темный</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="226"/>
+        <location filename="mainwindow.ui" line="234"/>
         <source>Default</source>
         <translation type="unfinished">По умолчанию</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="236"/>
-        <location filename="mainwindow.cpp" line="96"/>
+        <location filename="mainwindow.ui" line="244"/>
+        <location filename="mainwindow.cpp" line="97"/>
         <source>Get font</source>
         <translation type="unfinished">Запомнить шрифт</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="241"/>
-        <location filename="mainwindow.cpp" line="99"/>
+        <location filename="mainwindow.ui" line="249"/>
+        <location filename="mainwindow.cpp" line="100"/>
         <source>Set font</source>
         <translation type="unfinished">Применить шрифт</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="246"/>
-        <location filename="mainwindow.cpp" line="102"/>
+        <location filename="mainwindow.ui" line="254"/>
+        <location filename="mainwindow.cpp" line="103"/>
         <source>Randomize font</source>
         <translation type="unfinished">Применить случайный шрифт</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="251"/>
-        <location filename="mainwindow.cpp" line="110"/>
+        <location filename="mainwindow.ui" line="259"/>
+        <location filename="mainwindow.cpp" line="111"/>
         <source>Left</source>
         <translation type="unfinished">По левому краю</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="256"/>
-        <location filename="mainwindow.cpp" line="113"/>
+        <location filename="mainwindow.ui" line="264"/>
+        <location filename="mainwindow.cpp" line="114"/>
         <source>Right</source>
         <translation type="unfinished">По правому краю</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="261"/>
-        <location filename="mainwindow.cpp" line="107"/>
+        <location filename="mainwindow.ui" line="269"/>
+        <location filename="mainwindow.cpp" line="108"/>
         <source>Center</source>
         <translation type="unfinished">По центру</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="266"/>
-        <location filename="mainwindow.cpp" line="116"/>
+        <location filename="mainwindow.ui" line="274"/>
+        <location filename="mainwindow.cpp" line="117"/>
         <source>Change font ...</source>
         <translation type="unfinished">Изменить шрифт ...</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="279"/>
+        <location filename="mainwindow.cpp" line="122"/>
+        <source>Current Date</source>
+        <translation type="unfinished">Текущая дата</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="284"/>
+        <location filename="mainwindow.cpp" line="125"/>
+        <source>Current Time</source>
+        <translation type="unfinished">Текущее время</translation>
     </message>
 </context>
 <context>

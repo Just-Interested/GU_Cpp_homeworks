@@ -65,6 +65,10 @@ private slots:
 
     void set_alignment_center();
 
+    void insert_current_date();
+
+    void insert_current_time();
+
 private:
     Ui::MainWindow *ui;
     QTranslator translater;
