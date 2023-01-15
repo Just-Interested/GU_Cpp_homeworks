@@ -14,7 +14,8 @@
 #include <QPrintDialog>
 #include <QFontDatabase>
 #include <QFontDialog>
-
+#include <QDate>
+#include <QTime>
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -115,6 +116,14 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->actionChange_font->setText(tr("Change font ..."));
     connect(ui->actionChange_font, &QAction::triggered, this, &MainWindow::change_font);
+
+    ui->menuInsert->setTitle(tr("Insert"));
+
+    ui->actionDate->setText(tr("Current Date"));
+    connect(ui->actionDate, &QAction::triggered, this, &MainWindow::insert_current_date);
+
+    ui->actionTime->setText(tr("Current Time"));
+    connect(ui->actionTime, &QAction::triggered, this, &MainWindow::insert_current_time);
 
     // Заполняем QTableWidget данными о хоткеях и устанавливаем делегат для обработки событий KeyPress
     QTableWidget *shortcuts_tbl = shortcuts_dlg.findChild<QTableWidget *>("tableWidget");
@@ -289,4 +298,16 @@ void MainWindow::set_alignment_right()
 void MainWindow::set_alignment_center()
 {
     ui->plainTextEdit->setAlignment(Qt::AlignCenter);
+}
+
+void MainWindow::insert_current_date()
+{
+    QDate c_date = QDate::currentDate();
+    ui->plainTextEdit->textCursor().insertText(c_date.toString("ddd MMM d yyyy"));
+}
+
+void MainWindow::insert_current_time()
+{
+    QTime c_time = QTime::currentTime();
+    ui->plainTextEdit->textCursor().insertText(c_time.toString("HH:mm:ss"));
 }
