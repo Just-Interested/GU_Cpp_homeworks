@@ -25,27 +25,34 @@ FileSystemViewer::FileSystemViewer(QWidget *parent)
     connect(tree, &QTreeView::clicked, this, &FileSystemViewer::item_selected);
 }
 
+void FileSystemViewer::SetActiveItem(QString filepath)
+{
+    tree->setCurrentIndex(model->index(filepath));
+    item_selected(model->index(filepath));
+}
+
 void FileSystemViewer::item_selected(QModelIndex index)
 {
-    QString current_path = model->filePath(index);
+    current_path = model->filePath(index);
     label->setText(current_path);
     model->setRootPath(current_path);
 }
 
-void FileSystemViewer::item_search(QString file_name)
-{
-    QString current_path = model->rootPath();
-    QDirIterator it(current_path, QDirIterator::Subdirectories);
-    while (it.hasNext()) {
-        if (it.fileName() == file_name) {
-            current_path = it.filePath();
-            tree->setCurrentIndex(model->index(current_path));
-            item_selected(model->index(current_path));
-            return;
-        }
-        it.next();
-    }
-    label->setText("File not found!");
-}
+// testing
+//void FileSystemViewer::item_search(QString file_name)
+//{
+//    QString current_path = model->rootPath();
+//    QDirIterator it(current_path, QDirIterator::Subdirectories);
+//    while (it.hasNext()) {
+//        if (it.fileName() == file_name) {
+//            current_path = it.filePath();
+//            tree->setCurrentIndex(model->index(current_path));
+//            item_selected(model->index(current_path));
+//            return;
+//        }
+//        it.next();
+//    }
+//    label->setText("File not found!");
+//}
 
 

@@ -2,7 +2,8 @@
 #include "ui_mainwindow.h"
 
 #include <QSizePolicy>
-#include <QVBoxLayout>
+#include <QThread>
+#include <qtconcurrentrun.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -12,7 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
     fileSystemViewer = new FileSystemViewer(this);
     ui->centralwidget->layout()->addWidget(fileSystemViewer);
     connect(ui->pushButton_search, &QPushButton::clicked, this, &MainWindow::search_button_clicked);
-    connect(this, &MainWindow::search_file, fileSystemViewer, &FileSystemViewer::item_search);
+    worker = new SearchWorker(this);
+    connect(worker, &SearchWorker::search_file_done, this, &MainWindow::file_found);
 }
 
 MainWindow::~MainWindow()
@@ -20,9 +22,22 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
 void MainWindow::search_button_clicked()
 {
     QString filename = ui->lineEdit_search->text();
-    emit search_file(filename);
+    QString search_path = fileSystemViewer->GetCurrentPath();
+    QFuture<void> future = QtConcurrent::run(&SearchWorker::SearchFile, worker, search_path, filename);
+    future.waitForFinished();
+}
+
+void MainWindow::file_found(QString filepath)
+{
+    if (filepath == "")
+        ui->lineEdit_search->setText("File not found!");
+    else{
+        ui->lineEdit_search->setText("File found: " + filepath);
+        fileSystemViewer->SetActiveItem(filepath);
+    }
 }
 

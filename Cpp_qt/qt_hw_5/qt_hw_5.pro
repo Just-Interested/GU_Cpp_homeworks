@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -11,11 +11,13 @@ CONFIG += c++11
 SOURCES += \
     filesystemviewer.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    searchworker.cpp
 
 HEADERS += \
     filesystemviewer.h \
-    mainwindow.h
+    mainwindow.h \
+    searchworker.h
 
 FORMS += \
     mainwindow.ui
