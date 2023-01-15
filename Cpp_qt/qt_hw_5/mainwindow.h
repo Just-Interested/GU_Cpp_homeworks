@@ -20,5 +20,11 @@ public:
 private:
     Ui::MainWindow *ui;
     FileSystemViewer* fileSystemViewer;
+
+signals:
+    void search_file(QString);
+
+private slots:
+    void search_button_clicked();
 };
 #endif // MAINWINDOW_H

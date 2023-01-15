@@ -27,6 +27,7 @@ private:
 
 public slots:
     void item_selected(QModelIndex);
+    void item_search(QString);
 };
 
 #endif // FILESYSTEMVIEWER_H
