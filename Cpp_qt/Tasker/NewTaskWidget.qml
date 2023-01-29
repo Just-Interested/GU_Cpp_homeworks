@@ -63,7 +63,9 @@ Frame {
             Connections {
                 target: _customButton
                 function onButtonClicked(msg){
-                    _newTaskWidget.addNewTask(_taskname.text, _progressVal.value, _deadline.text)
+                    if (_deadline.acceptableInput === true && _taskname.text != ""){
+                        _newTaskWidget.addNewTask(_taskname.text, _progressVal.value, _deadline.text)
+                    }
                 }
             }
         }

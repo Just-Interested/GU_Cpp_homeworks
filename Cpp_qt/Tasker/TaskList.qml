@@ -4,6 +4,7 @@ import QtQuick.Layouts
 
 Frame {
     id: _task_list
+    signal taskProgressChanged(int index, int progressVal)
     width: parent.width
     background: Rectangle {
         color: "transparent"
@@ -55,7 +56,7 @@ Frame {
 
         model: ListModel {
             id: _listModel
-            objectName: "listObject"
+            objectName: "listObject"           
 //            ListElement {
 //                taskName: "Task 1"
 //                progressVal: 5
@@ -74,6 +75,7 @@ Frame {
                 Layout.minimumHeight: 25
                 Layout.preferredHeight: 25
                 TextField {
+                    id: _taskname
                     selectByMouse: true
                     width: parent.width
                     anchors.verticalCenter: parent.verticalCenter
@@ -103,6 +105,9 @@ Frame {
                         to: 10
                         stepSize: 1
                         value: progressVal
+                        onValueChanged: {
+                            taskProgressChanged(model.index, value)
+                        }
                     }
                 }
             }
@@ -114,6 +119,7 @@ Frame {
                 Layout.minimumHeight: 25
                 Layout.preferredHeight: 25
                 TextField {
+                    id: _deadline
                     selectByMouse: true
                     width: parent.width
                     anchors.verticalCenter: parent.verticalCenter

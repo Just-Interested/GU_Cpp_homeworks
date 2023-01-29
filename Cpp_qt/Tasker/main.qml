@@ -21,6 +21,12 @@ Window {
             Layout.fillWidth: parent
             Layout.topMargin: 10
         }
+        Connections {
+            target: _taskList
+            function onTaskProgressChanged(idx, progress){
+                _testClass.taskProgressChanged(idx, progress)
+            }
+        }
         NewTaskWidget {
             id: _newTaskWidget
             Layout.row: 0
@@ -40,7 +46,6 @@ Window {
         id: _testClass
         objectName: "testClass"
         Component.onCompleted: {
-            console.log(objectName + "created")
             readData()
         }
     }
@@ -52,6 +57,6 @@ Window {
     }
     onClosing: {
         _testClass.writeData()
-        console.log("Exiting")
+//        console.log("Exiting")
     }
 }
