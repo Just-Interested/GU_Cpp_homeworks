@@ -21,9 +21,13 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     engine.load(url);
 
-//    QList<QObject*> list = engine.rootObjects();
-//    QObject* listModel = list[0]->findChild<QObject*>("listObject");
-//    qDebug() << listModel;
+    QList<QObject*> list = engine.rootObjects();
+    QObject* listModel = list[0]->findChild<QObject*>("listObject");
+//    qDebug() << listModel->inherits("QAbstractItemModel");
+//    qDebug() << listModel->metaObject()->methodCount();
+//    for (int i = 0; i < listModel->metaObject()->methodCount(); i++){
+//        qDebug() << listModel->metaObject()->method(i).name();
+//    }
 //    QAbstractListModel* model = qobject_cast<QAbstractListModel*>(listModel);
 //    qDebug() << model->roleNames();
 //    qDebug() << model->data(model->index(0), 2).toString();

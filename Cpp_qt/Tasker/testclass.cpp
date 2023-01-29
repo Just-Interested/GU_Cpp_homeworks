@@ -56,6 +56,12 @@ void TestClass::writeData()
     }
 }
 
+void TestClass::taskProgressChanged(int idx, int progress)
+{
+    if (idx < mTasks.size())
+        mTasks[idx].progress = progress;
+}
+
 void TestClass::cppFunc(QString a, int b, QString c)
 {
     qDebug() << a << " p:" << b << " d:" << c;

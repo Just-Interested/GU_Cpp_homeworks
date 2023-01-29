@@ -13,6 +13,7 @@ public:
     Q_INVOKABLE void addNewTask(QString, int, QString);
     Q_INVOKABLE void readData();
     Q_INVOKABLE void writeData();
+    Q_INVOKABLE void taskProgressChanged(int, int);
 
 signals:
     void nextTask(QString, int, QString);
