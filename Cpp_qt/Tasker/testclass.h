@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QVector>
+#include <QtSql/QSqlTableModel>
+#include "sqlitetaskstorage.h"
 
 
 class TestClass : public QObject
@@ -14,6 +16,7 @@ public:
     Q_INVOKABLE void readData();
     Q_INVOKABLE void writeData();
     Q_INVOKABLE void taskProgressChanged(int, int);
+    Q_INVOKABLE void showTaskTable();
 
 signals:
     void nextTask(QString, int, QString);
@@ -31,7 +34,13 @@ private:
         QString deadline;
     };
 
+    bool connect();
+    bool insertRecord(QString taskName, int progress, QString deadline);
+
     QVector<Task> mTasks;
+    QSqlDatabase db;
+    QSqlTableModel *mSqlTableModel;
+    bool mConnected;
 };
 
 #endif // TESTCLASS_H
