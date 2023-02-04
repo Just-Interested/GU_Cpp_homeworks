@@ -34,6 +34,24 @@ Window {
             Layout.fillWidth: parent
             Layout.topMargin: 10
         }
+        Rectangle {
+            color: "transparent"
+            Layout.row: 2
+            Layout.column: 0
+            Layout.fillWidth: parent
+            Layout.fillHeight: parent
+            CustomButton {
+                id: _showTableButton
+                buttonText: "Show Tasks"
+                buttonHeight: 50
+                buttonWidth: 150
+                anchors.centerIn: parent
+                onButtonClicked: {
+                    _testClass.showTaskTable()
+                }
+            }
+        }
+
     }
     Connections {
         target: _newTaskWidget

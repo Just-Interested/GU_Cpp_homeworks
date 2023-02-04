@@ -1,4 +1,5 @@
 #include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QAbstractListModel>
 
@@ -8,7 +9,7 @@
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
 
     qmlRegisterType<TestClass>("com.my.testclass", 1, 0, "TestClass");
 
@@ -21,8 +22,8 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     engine.load(url);
 
-    QList<QObject*> list = engine.rootObjects();
-    QObject* listModel = list[0]->findChild<QObject*>("listObject");
+//    QList<QObject*> list = engine.rootObjects();
+//    QObject* listModel = list[0]->findChild<QObject*>("listObject");
 //    qDebug() << listModel->inherits("QAbstractItemModel");
 //    qDebug() << listModel->metaObject()->methodCount();
 //    for (int i = 0; i < listModel->metaObject()->methodCount(); i++){
@@ -49,6 +50,5 @@ int main(int argc, char *argv[])
 //    QTimer* timer = new QTimer();
 //    QObject::connect(timer, &QTimer::timeout, testClass, &TestClass::printTasks);
 //    timer->start(5000);
-
     return app.exec();
 }
