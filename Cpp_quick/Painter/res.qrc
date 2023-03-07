@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>MyShapes.js</file>
+    </qresource>
+</RCC>
